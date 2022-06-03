@@ -1,5 +1,6 @@
 package com.creditas.livro.model
 
+import com.creditas.livro.enums.CustomerStatus
 import javax.persistence.*
 
 @Entity
@@ -13,5 +14,9 @@ data class CustomerModel (
     var name : String,
 
     @Column
-    var email : String
+    var email : String,
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    var status: CustomerStatus
 )

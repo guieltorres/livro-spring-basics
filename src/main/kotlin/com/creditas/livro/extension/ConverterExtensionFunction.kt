@@ -5,15 +5,16 @@ import com.creditas.livro.controller.request.PostCustomerRequest
 import com.creditas.livro.controller.request.PutBookRequest
 import com.creditas.livro.controller.request.PutCustomerRequest
 import com.creditas.livro.enums.BookStatus
+import com.creditas.livro.enums.CustomerStatus
 import com.creditas.livro.model.BookModel
 import com.creditas.livro.model.CustomerModel
 
 fun PostCustomerRequest.toCustomerModel(): CustomerModel {
-    return CustomerModel(name = this.name, email=this.email)
+    return CustomerModel(name = this.name, email=this.email, status = CustomerStatus.ATIVO)
 }
 
-fun PutCustomerRequest.toCustomerModel(id: Int): CustomerModel {
-    return CustomerModel(id = id, name = this.name, email = this.email)
+fun PutCustomerRequest.toCustomerModel(previousCustomer: CustomerModel): CustomerModel {
+    return CustomerModel(id = previousCustomer.id, name = this.name, email = this.email, status = previousCustomer.status)
 }
 
 fun PostBookRequest.toBookModel(customer: CustomerModel): BookModel {
