@@ -1,10 +1,11 @@
 package com.creditas.livro.controller
 
-import com.creditas.livro.service.CustomerService
 import com.creditas.livro.controller.request.PostCustomerRequest
 import com.creditas.livro.controller.request.PutCustomerRequest
+import com.creditas.livro.controller.response.CustomerResponse
 import com.creditas.livro.extension.toCustomerModel
-import com.creditas.livro.model.CustomerModel
+import com.creditas.livro.extension.toResponse
+import com.creditas.livro.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -15,8 +16,8 @@ class CustomerController(
 ) {
 
     @GetMapping
-    fun getAll(@RequestParam name: String?): List<CustomerModel> {
-        return customerService.getAll(name)
+    fun getAll(@RequestParam name: String?): List<CustomerResponse> {
+        return customerService.getAll(name).map { it.toResponse() }
     }
 
     @PostMapping
@@ -26,8 +27,8 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: Int): CustomerModel {
-        return customerService.findById(id)
+    fun getCustomer(@PathVariable id: Int): CustomerResponse {
+        return customerService.findById(id).toResponse()
     }
 
     @PutMapping("/{id}")

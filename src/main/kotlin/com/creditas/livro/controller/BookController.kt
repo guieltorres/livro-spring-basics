@@ -2,8 +2,9 @@ package com.creditas.livro.controller
 
 import com.creditas.livro.controller.request.PostBookRequest
 import com.creditas.livro.controller.request.PutBookRequest
+import com.creditas.livro.controller.response.BookResponse
 import com.creditas.livro.extension.toBookModel
-import com.creditas.livro.model.BookModel
+import com.creditas.livro.extension.toResponse
 import com.creditas.livro.service.BookService
 import com.creditas.livro.service.CustomerService
 import org.springframework.http.HttpStatus
@@ -24,18 +25,18 @@ class BookController(
     }
 
     @GetMapping
-    fun findAll(): List<BookModel> {
-        return bookService.findAll()
+    fun findAll(): List<BookResponse> {
+        return bookService.findAll().map { it.toResponse() }
     }
 
     @GetMapping("/active")
-    fun findActives(): List<BookModel> {
-        return bookService.findActives()
+    fun findActives(): List<BookResponse> {
+        return bookService.findActives().map { it.toResponse() }
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Int): BookModel{
-        return bookService.findById(id)
+    fun findById(@PathVariable id: Int): BookResponse{
+        return bookService.findById(id).toResponse()
     }
 
     @DeleteMapping("/{id}")
