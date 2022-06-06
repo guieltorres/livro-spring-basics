@@ -1,10 +1,12 @@
 package com.creditas.livro.repository
 
 import com.creditas.livro.model.CustomerModel
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface CustomerRepository : CrudRepository<CustomerModel, Int>{
+interface CustomerRepository : JpaRepository<CustomerModel, Int> {
 
-    fun findByNameContaining(name: String): List<CustomerModel>
+    fun findByNameContaining(name: String, pageable: Pageable): Page<CustomerModel>
 
 }

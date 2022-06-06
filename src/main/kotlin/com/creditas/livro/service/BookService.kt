@@ -4,7 +4,11 @@ import com.creditas.livro.enums.BookStatus
 import com.creditas.livro.model.BookModel
 import com.creditas.livro.model.CustomerModel
 import com.creditas.livro.repository.BookRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class BookService(
@@ -14,12 +18,12 @@ class BookService(
         bookRepository.save(book)
     }
 
-    fun findAll(): List<BookModel> {
-        return bookRepository.findAll().toList()
+    fun findAll(pageable: Pageable): Page<BookModel> {
+        return bookRepository.findAll(pageable)
     }
 
-    fun findActives(): List<BookModel> =
-        bookRepository.findByStatus(BookStatus.ATIVO)
+    fun findActives(pageable: Pageable): Page<BookModel> =
+        bookRepository.findByStatus(BookStatus.ATIVO, pageable)
 
     fun findById(id: Int): BookModel {
         return bookRepository.findById(id).orElseThrow()
@@ -38,6 +42,7 @@ class BookService(
         bookRepository.save(book)
     }
 
+    @Transactional
     fun deleteByCustomer(customer: CustomerModel) {
         val books = bookRepository.findByCustomer(customer)
         for(book in books){
