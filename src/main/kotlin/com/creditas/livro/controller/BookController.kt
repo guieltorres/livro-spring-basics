@@ -9,7 +9,6 @@ import com.creditas.livro.service.BookService
 import com.creditas.livro.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import java.awt.print.Book
 
 @RestController
 @RequestMapping("books")
