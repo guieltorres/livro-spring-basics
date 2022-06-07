@@ -1,6 +1,8 @@
 package com.creditas.livro.model
 
 import com.creditas.livro.enums.BookStatus
+import com.creditas.livro.enums.Errors
+import com.creditas.livro.exception.BadRequestException
 import java.math.BigDecimal
 import javax.persistence.*
 
@@ -26,7 +28,7 @@ data class BookModel (
     var status: BookStatus? = null
         set(value){
             if (field == BookStatus.CANCELADO || field == BookStatus.DELETADO){
-                throw Exception("Não é possivel alterar um livro com status $field")
+                throw BadRequestException(Errors.L102.message.format(field), Errors.L102.code)
             }
             field = value
         }

@@ -1,6 +1,8 @@
 package com.creditas.livro.service
 
 import com.creditas.livro.enums.CustomerStatus
+import com.creditas.livro.enums.Errors
+import com.creditas.livro.exception.NotFoundException
 import com.creditas.livro.model.CustomerModel
 import com.creditas.livro.repository.CustomerRepository
 import org.springframework.data.domain.Page
@@ -25,7 +27,7 @@ class CustomerService(
     }
 
     fun findById(id: Int): CustomerModel {
-        return customerRepository.findById(id).orElseThrow()
+        return customerRepository.findById(id).orElseThrow { NotFoundException(Errors.L201.message.format(id), Errors.L201.code)  }
     }
 
     fun update(customer: CustomerModel) {
