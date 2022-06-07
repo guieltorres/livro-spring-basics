@@ -33,15 +33,4 @@ class ControllerAdvice {
         )
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
-
-    @ExceptionHandler(Exception::class)
-    fun handleDefaultException(ex: Exception, request: WebRequest): ResponseEntity<ErrorResponse> {
-        val error = ErrorResponse(
-            HttpStatus.INTERNAL_SERVER_ERROR.value(),
-            Errors.L301.message,
-            Errors.L301.code,
-            null
-        )
-        return ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR)
-    }
 }
