@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class BookService(
-    val bookRepository: BookRepository
+    private val bookRepository: BookRepository
 ) {
     fun create(book: BookModel) {
         bookRepository.save(book)
