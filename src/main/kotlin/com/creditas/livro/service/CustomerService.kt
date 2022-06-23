@@ -2,6 +2,7 @@ package com.creditas.livro.service
 
 import com.creditas.livro.enums.CustomerStatus
 import com.creditas.livro.enums.Errors
+import com.creditas.livro.enums.Profile
 import com.creditas.livro.exception.NotFoundException
 import com.creditas.livro.model.CustomerModel
 import com.creditas.livro.repository.CustomerRepository
@@ -23,7 +24,10 @@ class CustomerService(
     }
 
     fun create(customer: CustomerModel) {
-        customerRepository.save(customer)
+        val customerCopy = customer.copy(
+            roles = setOf(Profile.CUSTOMER)
+        )
+        customerRepository.save(customerCopy)
     }
 
     fun findById(id: Int): CustomerModel {

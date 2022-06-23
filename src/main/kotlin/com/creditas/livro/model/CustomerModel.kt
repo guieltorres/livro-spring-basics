@@ -1,6 +1,7 @@
 package com.creditas.livro.model
 
 import com.creditas.livro.enums.CustomerStatus
+import com.creditas.livro.enums.Profile
 import javax.persistence.*
 
 @Entity
@@ -21,5 +22,11 @@ data class CustomerModel (
     var status: CustomerStatus,
 
     @Column
-    val password: String
+    val password: String,
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = Profile::class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "customer_roles", joinColumns = [JoinColumn(name = "customer_id")])
+    var roles: Set<Profile> = setOf()
 )
