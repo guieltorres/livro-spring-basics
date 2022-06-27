@@ -4,7 +4,6 @@ import com.creditas.livro.controller.request.LoginRequest
 import com.creditas.livro.exception.AuthenticationException
 import com.creditas.livro.repository.CustomerRepository
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -15,7 +14,8 @@ import javax.servlet.http.HttpServletResponse
 
 class AuthenticationFilter(
     authenticationManager: AuthenticationManager,
-    private val customerRepository: CustomerRepository
+    private val customerRepository: CustomerRepository,
+    private val jwtUtil: JwtUtil
 ) : UsernamePasswordAuthenticationFilter(authenticationManager) {
 
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
@@ -36,7 +36,7 @@ class AuthenticationFilter(
         authResult: Authentication
     ) {
         val id = (authResult.principal as UserCustomDetails).id
-
-        response.addHeader("Authorization", "abc123")
+        val token = jwtUtil.generateToken(id)
+        response.addHeader("Authorization", "Bearer $token")
     }
 }
