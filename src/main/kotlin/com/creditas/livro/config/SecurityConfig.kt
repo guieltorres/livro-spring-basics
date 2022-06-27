@@ -2,6 +2,7 @@ package com.creditas.livro.config
 
 import com.creditas.livro.repository.CustomerRepository
 import com.creditas.livro.security.AuthenticationFilter
+import com.creditas.livro.security.AuthorizationFilter
 import com.creditas.livro.security.JwtUtil
 import com.creditas.livro.service.UserDetailsCustomService
 import org.springframework.context.annotation.Bean
@@ -42,6 +43,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
             .anyRequest().authenticated()
         http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository, jwtUtil))
+        http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
 
