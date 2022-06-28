@@ -6,10 +6,12 @@ import com.creditas.livro.controller.request.PutBookRequest
 import com.creditas.livro.controller.request.PutCustomerRequest
 import com.creditas.livro.controller.response.BookResponse
 import com.creditas.livro.controller.response.CustomerResponse
+import com.creditas.livro.controller.response.PageResponse
 import com.creditas.livro.enums.BookStatus
 import com.creditas.livro.enums.CustomerStatus
 import com.creditas.livro.model.BookModel
 import com.creditas.livro.model.CustomerModel
+import org.springframework.data.domain.Page
 
 fun PostCustomerRequest.toCustomerModel(): CustomerModel {
     return CustomerModel(name = this.name,
@@ -62,4 +64,11 @@ fun BookModel.toResponse(): BookResponse {
         customer = this.customer,
         status = this.status
     )
+}
+
+fun <T> Page<T>.toPageResponse(): PageResponse<T> {
+    return PageResponse(this.content,
+        this.number,
+        this.totalElements,
+        this.totalPages)
 }
