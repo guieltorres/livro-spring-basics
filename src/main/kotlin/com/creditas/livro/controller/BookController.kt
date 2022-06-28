@@ -4,7 +4,9 @@ import com.creditas.livro.config.UserCanOnlyAccessTheirOwnResource
 import com.creditas.livro.controller.request.PostBookRequest
 import com.creditas.livro.controller.request.PutBookRequest
 import com.creditas.livro.controller.response.BookResponse
+import com.creditas.livro.controller.response.PageResponse
 import com.creditas.livro.extension.toBookModel
+import com.creditas.livro.extension.toPageResponse
 import com.creditas.livro.extension.toResponse
 import com.creditas.livro.service.BookService
 import com.creditas.livro.service.CustomerService
@@ -29,13 +31,13 @@ class BookController(
     }
 
     @GetMapping
-    fun findAll(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse> {
-        return bookService.findAll(pageable).map { it.toResponse() }
+    fun findAll(@PageableDefault(page = 0, size = 10) pageable: Pageable): PageResponse<BookResponse> {
+        return bookService.findAll(pageable).map { it.toResponse() }.toPageResponse()
     }
 
     @GetMapping("/active")
-    fun findActives(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse> {
-        return bookService.findActives(pageable).map { it.toResponse() }
+    fun findActives(@PageableDefault(page = 0, size = 10) pageable: Pageable): PageResponse<BookResponse> {
+        return bookService.findActives(pageable).map { it.toResponse() }.toPageResponse()
     }
 
     @GetMapping("/{id}")
