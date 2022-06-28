@@ -1,5 +1,6 @@
 package com.creditas.livro.controller
 
+import com.creditas.livro.config.UserCanOnlyAccessTheirOwnResource
 import com.creditas.livro.controller.request.PostBookRequest
 import com.creditas.livro.controller.request.PutBookRequest
 import com.creditas.livro.controller.response.BookResponse
@@ -43,12 +44,14 @@ class BookController(
     }
 
     @DeleteMapping("/{id}")
+    @UserCanOnlyAccessTheirOwnResource
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: Int) {
         bookService.delete(id)
     }
 
     @PutMapping("/{id}")
+    @UserCanOnlyAccessTheirOwnResource
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: Int, @RequestBody book: PutBookRequest){
         val bookSaved = bookService.findById(id)
