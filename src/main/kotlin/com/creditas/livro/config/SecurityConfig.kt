@@ -4,6 +4,7 @@ import com.creditas.livro.enums.Role
 import com.creditas.livro.repository.CustomerRepository
 import com.creditas.livro.security.AuthenticationFilter
 import com.creditas.livro.security.AuthorizationFilter
+import com.creditas.livro.security.CustomAuthenticationEntryPoint
 import com.creditas.livro.security.JwtUtil
 import com.creditas.livro.service.UserDetailsCustomService
 import org.springframework.context.annotation.Bean
@@ -27,7 +28,8 @@ import org.springframework.web.filter.CorsFilter
 class SecurityConfig(
     private val customerRepository: CustomerRepository,
     private val userDetails: UserDetailsCustomService,
-    private val jwtUtil: JwtUtil
+    private val jwtUtil: JwtUtil,
+    private val customEntryPoint: CustomAuthenticationEntryPoint
 ) : WebSecurityConfigurerAdapter() {
 
     private val PUBLIC_MATCHERS = arrayOf<String>(
@@ -56,6 +58,7 @@ class SecurityConfig(
         http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository, jwtUtil))
         http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.exceptionHandling().authenticationEntryPoint(customEntryPoint)
     }
     override fun configure(web: WebSecurity) {
         web.ignoring().antMatchers(
