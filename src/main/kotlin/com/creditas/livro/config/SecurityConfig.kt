@@ -1,5 +1,6 @@
 package com.creditas.livro.config
 
+import com.creditas.livro.enums.Role
 import com.creditas.livro.repository.CustomerRepository
 import com.creditas.livro.security.AuthenticationFilter
 import com.creditas.livro.security.AuthorizationFilter
@@ -32,6 +33,10 @@ class SecurityConfig(
         "/customers"
     )
 
+    private val ADMIN_MATCHERS = arrayOf(
+        "/admin/**"
+    )
+
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(userDetails).passwordEncoder(bCryptPasswordEncoder())
     }
@@ -41,6 +46,7 @@ class SecurityConfig(
         http.authorizeRequests()
             .antMatchers(*PUBLIC_MATCHERS).permitAll()
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
+            .antMatchers(*ADMIN_MATCHERS).hasAuthority(Role.ADMIN.description)
             .anyRequest().authenticated()
         http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository, jwtUtil))
         http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
