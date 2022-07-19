@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:postgresql://localhost:5432/livrotest
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+  jackson:
+    default-property-inclusion: non_null
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+jwt:
+  secret: 5655f833-c864-4c1c-81e4-6aa78075b036
+  expiration: 9999999

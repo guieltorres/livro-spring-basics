@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
+	jacoco
 }
 
 group = "com.creditas"
@@ -28,7 +29,9 @@ dependencies {
 	implementation("org.flywaydb:flyway-core:8.5.11")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.mockk:mockk:1.12.4")
 }
 
 tasks.withType<KotlinCompile> {
