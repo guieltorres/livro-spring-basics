@@ -4,6 +4,7 @@ import com.creditas.livro.enums.CustomerStatus
 import com.creditas.livro.enums.Errors
 import com.creditas.livro.enums.Role
 import com.creditas.livro.exception.NotFoundException
+import com.creditas.livro.helper.buildCustomer
 import com.creditas.livro.model.CustomerModel
 import com.creditas.livro.repository.CustomerRepository
 import io.mockk.every
@@ -200,18 +201,4 @@ class CustomerServiceTest {
         verify(exactly = 1) { customerRepository.existsByEmail(email) }
     }
 
-
-    fun buildCustomer(
-        id: Int? = null,
-        name: String = "customer name",
-        email: String = "${UUID.randomUUID()}@email.com",
-        password: String = "password"
-        ) = CustomerModel(
-        id = id,
-        name = name,
-        email = email,
-        status = CustomerStatus.ATIVO,
-        password = password,
-        roles = setOf(Role.CUSTOMER)
-        )
 }
