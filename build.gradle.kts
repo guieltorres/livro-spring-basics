@@ -26,7 +26,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.postgresql:postgresql")
-	implementation("org.flywaydb:flyway-core:8.5.11")
+	implementation("org.flywaydb:flyway-core:8.5.12")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 
