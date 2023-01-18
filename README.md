@@ -5,7 +5,7 @@ Este projeto aborda diversos tópicos relacionados ao desenvolvimento de aplica�
 
 ## Spring Framework
 
-O Spring Framework é um conjunto de ferramentas e bibliotecas para desenvolvimento de aplicações Java. Ele fornece uma abstração para muitos aspectos comuns da programação orientada a objetos, como gerenciamento de dependências, injeção de dependência, gerenciamento de transações e suporte a vários protocolos de comunicação.
+O Spring Framework é um conjunto de ferramentas e bibliotecas para desenvolvimento de aplicações Java/Kotlin. Ele fornece uma abstração para muitos aspectos comuns da programação orientada a objetos, como gerenciamento de dependências, injeção de dependência, gerenciamento de transações e suporte a vários protocolos de comunicação.
 
 ## Segurança da aplicação com Spring Security
 
